@@ -2,6 +2,28 @@
 
 A simulated robot actuator control system: two C programs communicate over UDP on localhost, coordinated by a single-threaded orchestrator running a 1kHz control loop with periodic disk logging. Built to meet a p99 round-trip latency deadline of 200µs. See `report.md` for the full design report and benchmark results.
 
+## File Structure
+
+```
+robot-actuator-loop/
+├── actuator.c          # Simulated actuator (robot joint)
+├── orchestrator.c      # Central control loop
+├── message.h           # Shared 20-byte message format + now_ns()
+├── Makefile            # Build configuration
+├── run_benchmark.sh    # Runs 5 x 5-minute benchmark
+├── analyze.py          # Latency analysis + graph generation
+├── report.md           # Design report
+├── README.md           # This file
+└── images/
+    ├── p99_per_run.png
+    ├── histogram_aggregate.png
+    ├── rtt_over_time_all_runs.png
+    ├── gradient_raw_vs_corrected.png
+    └── per_bus_p99.png
+```
+
+Raw benchmark data (`latency_run1.csv` through `latency_run5.csv`, `latency_all_runs_corrected.csv`) is available [here](https://drive.google.com/drive/folders/1En9gbcQD9aL_wza7Kfj1kzT3oaX-r1ND?usp=sharing) (Google Drive link) due to file size.
+
 ## Architecture
 
 This project consists of two C programs that communicate over UDP on localhost: `actuator.c`, which simulates one robot joint, and `orchestrator.c`, which sends commands to all actuators and receives responses. Each instance of `actuator.c` listens on its own UDP port.
@@ -111,25 +133,3 @@ See `report.md` for full discussion of this correction and its limitations.
 ## Results Summary
 
 Across 5 independent 5-minute runs (10,166,040 total measurements), mean p99 RTT was **113.6µs raw / 94.4µs corrected**, both within the 200µs deadline. See `report.md` for the full design report, including the iterative design process, benchmark results, and discussion.
-
-## File Structure
-
-```
-robot-actuator-loop/
-├── actuator.c          # Simulated actuator (robot joint)
-├── orchestrator.c      # Central control loop
-├── message.h           # Shared 20-byte message format + now_ns()
-├── Makefile            # Build configuration
-├── run_benchmark.sh    # Runs 5 x 5-minute benchmark
-├── analyze.py          # Latency analysis + graph generation
-├── report.md           # Design report
-├── README.md           # This file
-└── images/
-    ├── p99_per_run.png
-    ├── histogram_aggregate.png
-    ├── rtt_over_time_all_runs.png
-    ├── gradient_raw_vs_corrected.png
-    └── per_bus_p99.png
-```
-
-Raw benchmark data (`latency_run1.csv` through `latency_run5.csv`, `latency_all_runs_corrected.csv`) is available [here](https://drive.google.com/drive/folders/1En9gbcQD9aL_wza7Kfj1kzT3oaX-r1ND?usp=sharing) (Google Drive link) due to file size.
