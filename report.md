@@ -1,4 +1,4 @@
-# Robot Actuator Loop Design Report
+# Robot Actuator Loop Report
 
 ## 1. Overview
 This report covers the design, implementation, and performance analysis of a single-threaded UDP-based actuator control loop. The objective is to maintain a p99 round-trip latency under 200µs using a single thread while the robot orchestrator is sending commands and performing disk writes. See README.md for build instructions and full architecture details.
