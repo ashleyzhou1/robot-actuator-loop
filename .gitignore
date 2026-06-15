@@ -1,0 +1,21 @@
+# Compiled binaries
+actuator
+orchestrator
+orchestrator_prof
+
+# CSV data files (too large — stored on Google Drive)
+*.csv
+
+# Output logs
+output*.txt
+
+# Old debugging artifacts
+spike_comparison*.txt
+profile.txt
+
+# Runtime generated files
+commands.json
+latency.csv
+
+# macOS
+.DS_Store
