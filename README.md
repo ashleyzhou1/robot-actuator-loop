@@ -2,6 +2,9 @@
 
 A simulated robot actuator control system: two C programs communicate over UDP on localhost, coordinated by a single-threaded orchestrator running a 1kHz control loop with periodic disk logging. Built to meet a p99 round-trip latency deadline of 200µs. See `report.md` for the full design report and benchmark results.
 
+## Presentation
+[View slide deck (PDF)](https://drive.google.com/file/d/1qRzzthU_e4HjJ2H3Ng4vCG4lfGIefwHz/view?usp=sharing)
+
 ## File Structure
 
 ```
